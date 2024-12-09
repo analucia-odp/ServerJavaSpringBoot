@@ -48,7 +48,7 @@ public class PersonServiceTest {
         when(personDao.getPersonById(person.getId())).thenReturn(Optional.of(person));
 
         var result = personService.getPersonById(person.getId());
-        assertFalse(result.isPresent());
+        assertTrue(result.isPresent());
         verify(personDao, times(1)).getPersonById(person.getId());
     }
 
