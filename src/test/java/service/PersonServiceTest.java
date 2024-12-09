@@ -12,9 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,4 +43,13 @@ public class PersonServiceTest {
        assertEquals(Collections.singletonList(person), persons);
        verifyNoMoreInteractions(personDao);
    }
+    @Test
+    void getPersonByIdWithSuccess(){
+        when(personDao.getPersonById(person.getId())).thenReturn(Optional.of(person));
+
+        var result = personService.getPersonById(person.getId());
+        assertFalse(result.isPresent());
+        verify(personDao, times(1)).getPersonById(person.getId());
+    }
+
 }
